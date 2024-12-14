@@ -1,0 +1,370 @@
+\documentclass[leqno,a4paper]{article}
+%Wojciech Haładewicz 276002
+\author{\LARGE Wojciech Haładewicz 276002}
+\title{\Huge Raport 1 \\
+Szeregi i transformaty Fouriera}
+
+\date{\today}
+\usepackage{polski}
+\usepackage[t,lf]{spectral}
+\usepackage[utf8]{inputenc}
+\usepackage{mathrsfs,amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\renewcommand\thesection{\arabic{section}}
+\renewcommand\thesubsection{(\alph{subsection})}
+
+\begin{document}
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\phantomsection
+\addcontentsline{toc}{section}{Szeregi Fouriera}
+\section*{Szeregi Fouriera}
+
+Szeregiem Fouriera nazywamy reprezentację sygnału okresowego, pozwalającą na przedstawienie go w postaci sumy funkcji trygonometrycznych.
+\\ \\
+Dla funkcji $f$ o okresie $2\pi$ wyraża się on następującym wzorem
+\begin{equation*}
+S(x) = \frac{a_0}{2} + \sum\limits_{n=1}^\infty \Bigl(a_n\cos{(nx)}+ b_n\sin{(nx)}\Bigr)
+\end{equation*}
+o współczynnikach
+\begin{align*}
+a_0 &= \frac{1}{\pi}\int_{-\pi}^{\pi} f(x)\,dx
+\\\\
+a_n &= \frac{1}{\pi}\int_{-\pi}^{\pi} f(x)\cos{(nx)}\,dx,\quad \textit{dla n} = 1,2,3,...,
+\\\\
+b_n &= \frac{1}{\pi}\int_{-\pi}^{\pi} f(x)\sin{(nx)}\,dx,\quad \textit{dla n} = 1,2,3,...,
+\end{align*}
+
+\phantomsection
+\addcontentsline{toc}{subsection}{Funkcja 1}
+\subsection*{Funkcja 1 - trapez}
+
+Funkcja $f(t)$ ma postać
+\[  f(t)= \left\{
+\begin{array}{ll}
+      \sin{\pi t} &dla\hspace{0.2cm}-\pi \leq t\leq -\pi+2 \\[1.5ex]
+      0 &dla\hspace{0.2cm}-\pi+2\leq t\leq \pi-2 \\[1.5ex]
+      -t+\pi &dla\hspace{0.34cm}\pi-2\leq t\leq \pi
+\end{array}  
+\right. \]
+Wyliczymy teraz współczynniki jego szeregu Fouriera 
+\newline
+
+\begin{align*}
+1.\hspace{0.34cm} a_0 &= \frac{1}{\pi}\Biggl(\int_{-\pi}^{-\pi+2}(t+\pi)\,dt\ + \int_{-\pi+2}^{\pi-2}2\,dt\ +\int_{\pi-2}^{\pi}(-t+\pi)\,dt\ \Biggr) = 4 - \frac{4}{\pi} 
+\\\\
+2.\hspace{0.34cm} a_n &= \frac{1}{\pi}\Biggl(\int_{-\pi}^{-\pi+2}(t+\pi)\cos{(nt)}\,dt\ + \int_{-\pi+2}^{\pi-2}2\cos{(nt)}\,dt\ +\int_{\pi-2}^{\pi}(-t+\pi)\cos{(nt)}\,dt\ \Biggr) \\\\
+&= \frac{2\cos{((\pi-2)n)}}{\pi n^2}-\frac{2\cos{\pi n}}{\pi n^2} - \frac{4\sin{((2-\pi)n)}}{\pi n} - \frac{4\sin{((\pi-2)n)}}{\pi n}
+\\\\
+3.\hspace{0.34cm} b_n &= \frac{1}{\pi}\Biggl(\int_{-\pi}^{-\pi+2}(t+\pi)\cos{(nt)}\,dt\ + \int_{-\pi+2}^{\pi-2}2\cos{(nt)}\,dt\ +\int_{\pi-2}^{\pi}(-t+\pi)\cos{(nt)}\,dt\ \Biggr) = 0,
+\end{align*}
+ze względu na parzystość funkcji na przedziale $[-\pi,\pi]$
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{/Users/wojtek/Desktop/sygnały/wykres111.png}
+  \caption{Funkcja 1 dla $N=1$}
+  \centering
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{/Users/wojtek/Desktop/sygnały/wykres112.png}
+  \centering
+    \caption{Funkcja 1 dla $N=2$}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{/Users/wojtek/Desktop/sygnały/wykres114.png}
+  \centering
+   \caption{Funkcja 1 dla $N=4$}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{/Users/wojtek/Desktop/sygnały/wykres118.png}
+  \centering
+  \caption{Funkcja 1 dla $N=8$}
+\end{figure}
+
+\begin{table}
+\centering
+\begin{tabular}{||c c c||} 
+ \hline
+ N & MAE & RMSE \\ 
+ \hline\hline
+ 1 & 0.1702028 & 0.1932362\\ 
+ 2 & 0.0378241 & 0.05055 \\
+ 4 & 0.0315557 & 0.0386703 \\
+ 8 & 0.0078456 & 0.0111601 \\
+ \hline\hline
+\end{tabular}
+\caption{Analityczne wyliczenie szeregu Fouriera dla Funkcji 1}
+\end{table} 
+
+\begin{table}
+\centering
+\begin{tabular}{||c c c||} 
+ \hline
+ N & MAE & RMSE \\ 
+ \hline\hline
+ 1 & 0.1691012 & 0.1955886 \\ 
+ 2 & 0.0544659 & 0.0703744 \\
+ 4 & 0.0588757 & 0.0722789 \\
+ 8 & 0.0468396 & 0.0762387 \\
+ \hline\hline
+\end{tabular}
+\caption{Numeryczne wyliczenie szeregu Fouriera dla Funkcji 1}
+\end{table}
+
+\textbf{Jak widać szereg Fouriera wyznaczony analitycznie cechuje się mniejszymi wartościami MAE i RMSE, co oznacza, że potrafi przybliżać funkcję dokładniej niż metoda numeryczna.}
+
+
+\phantomsection
+\addcontentsline{toc}{subsection}{Funkcja 2}
+\subsection*{Funkcja 2 - korona}
+
+Funkcja $f(t)$ ma postać
+\[  f(t)= \left\{
+\begin{array}{ll}
+      -t &dla\hspace{0.2cm}-\pi \leq t\leq -\pi/2 \\[1.5ex]
+      t+\pi &dla\hspace{0.2cm}-\pi/2 \leq t\leq 0 \\[1.5ex]
+      -t+\pi &dla\hspace{0.3cm} 0\leq t\leq \pi/2 \\[1.5ex]
+      t &dla\hspace{0.3cm}\pi/2 \leq t\leq \pi
+\end{array}  
+\right. \]
+Wyliczymy teraz współczynniki jego szeregu Fouriera 
+\newline
+
+\begin{align*}
+1. a_0 &= \frac{1}{\pi}\Biggl(\int_{-\pi}^{-\pi/2}-t\,dt\ + \int_{-\pi/2}^{0}(t+\pi)\,dt\ +\int_{0}^{\pi/2}(-t+\pi)\,dt\ +\int_{\pi/2}^{\pi}t\,dt\  \Biggr) = \frac{3\pi^2}{2}
+\\\\
+2. a_n &= \frac{1}{\pi}\Biggl(\int_{-\pi}^{-\pi/2}-t\cos{(nt)}\,dt\ + \int_{-\pi/2}^{0}(t+\pi)\cos{(nt)}\,dt\ +\int_{0}^{\pi/2}(-t+\pi)\cos{(nt)}\,dt\ +\int_{\pi/2}^{\pi}t\cos{(nt)}\,dt\Biggr) \\ &= \frac{2}{\pi n^2} - \frac{4\cos{(\frac{\pi n}{2})}}{\pi n^2} + \frac{2\cos{(\pi n)}}{\pi n^2} + \frac{2\pi n \sin{(\pi n)}}{\pi n^2}
+\\\\
+3. b_n &= \frac{1}{\pi}\Biggl(\int_{-\pi}^{-\pi/2}-t\sin{(nt)}\,dt+\int_{-\pi/2}^{0}(t+\pi)\sin{(nt)}\,dt+\int_{0}^{\pi/2}(-t+\pi)\sin{(nt)}\,dt+\int_{\pi/2}^{\pi}t\sin{(nt)}\,dt\Biggr) = 0, \\
+\end{align*}
+ze względu na parzystość funkcji na przedziale $[-\pi,\pi]$
+\begin{figure}
+  \includegraphics[width=\linewidth]{/Users/wojtek/Desktop/sygnały/wykres131.png}
+  \caption{Funkcja 3 dla $N=1$}
+  \centering
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{/Users/wojtek/Desktop/sygnały/wykres132.png}
+  \centering
+    \caption{Funkcja 3 dla $N=2$}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{/Users/wojtek/Desktop/sygnały/wykres134.png}
+  \centering
+   \caption{Funkcja 3 dla $N=4$}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{/Users/wojtek/Desktop/sygnały/wykres138.png}
+  \centering
+  \caption{Funkcja 3 dla $N=8$}
+\end{figure}
+
+\begin{table}
+\centering
+\begin{tabular}{||c c c||} 
+ \hline
+ N & MAE & RMSE \\ 
+ \hline\hline
+ 1 & 0.3931304 & 0.4539455 \\ 
+ 2 & 0.0461221 & 0.0547352 \\
+ 4 & 0.0461221 & 0.0547352 \\
+ 8 & 0.0174942 & 0.0218892 \\
+ \hline\hline
+\end{tabular}
+\caption{Analityczne wyliczenie szeregu Fouriera dla Funkcji 2}
+\end{table} 
+
+\begin{table}
+\centering
+\begin{tabular}{||c c c||} 
+ \hline
+ N & MAE & RMSE \\ 
+ \hline\hline
+ 1 & 0.3931304 & 0.4539455 \\ 
+ 2 & 0.0461221 & 0.0547352 \\
+ 4 & 0.0461221 & 0.0547352 \\
+ 8 & 0.0174942 & 0.0218892 \\
+ \hline\hline
+\end{tabular}
+\caption{Numeryczne wyliczenie szeregu Fouriera dla Funkcji 2}
+\end{table}
+\textbf{Jak widać szereg Fouriera wyznaczony analitycznie przyjmuje takie same wartości MAE i RMSE, co wyznaczone metodą numeryczną, co oznacza, że przybliżają one funkcję 2 z taką samą dokładnością.}
+
+\phantomsection
+\addcontentsline{toc}{subsection}{Funkcja 3}
+\subsection*{Funkcja 3 - połowiczny sinus}
+
+Funkcja $f(t)$ ma postać
+\[  f(t)= \left\{
+\begin{array}{ll}
+      \sin{(\pi t)} &dla\hspace{0.2cm}0 \leq t\leq 1\hspace{0.2cm}oraz\hspace{0.2cm} 2 \leq t\leq 3 \\[1.5ex]
+      0 &dla\hspace{0.2cm}1 \leq t\leq 2\hspace{0.2cm}oraz\hspace{0.2cm}3 \leq t\leq \pi \\[1.5ex]
+\end{array}  
+\right. \]
+
+Wyliczymy teraz współczynniki jego szeregu Fouriera 
+\newline
+
+\begin{align*}
+1.\hspace{0.34cm}a_0 &= \frac{1}{\pi}\Biggl(\int_{0}^{1}\sin{(\pi t)}\,dt\ + \int_{1}^{2}0\,dt\ +\int_{2}^{3}\sin{(\pi t)}\,dt\ +\int_{3}^{\pi}0\,dt\  \Biggr) = \frac{1}{\pi}
+\\\\
+2.\hspace{0.34cm}a_n &= \frac{1}{\pi}\Biggl(\int_{0}^{1}\sin{(\pi t)}\cos{(nt)}\,dt\ + \int_{1}^{2}0\cos{(nt)}\,dt\ +\int_{2}^{3}\sin{(\pi t)}\cos{(nt)}\,dt\ +\int_{3}^{\pi}0\cos{(nt)}\,dt\  \Biggr) \\ &= 
+\frac{\cos{(n \pi)}+1}{\pi(1-n^2)} = \frac{2}{\pi(1-n^2)}\textbf{,} \hspace{0.5cm}\textbf{dla $n$ parzystych (dla nieparzystych $a_n = 0$)}
+\\\\
+3.\hspace{0.34cm}b_n &= \frac{1}{\pi}\Biggl(\int_{0}^{1}\sin{(\pi t)}\sin{(nt)}\,dt\ + \int_{1}^{2}0\sin{(nt)}\,dt\ +\int_{2}^{3}\sin{(\pi t)}\sin{(nt)}\,dt\ +\int_{3}^{\pi}0\sin{(nt)}\,dt\  \Biggr) \\ &=
+\frac{\sin{(n \pi)}}{\pi(1-n^2)} = \frac{1}{2}\textbf{,} \hspace{0.5cm}\textbf{dla $n = 1$ (dla $n \neq 1\hspace{0.2cm}b_n = 0$)}
+\end{align*}
+\\\\
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{/Users/wojtek/Desktop/sygnały/wykres121.png}
+  \caption{Funkcja 2 dla $N=1$}
+  \centering
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{/Users/wojtek/Desktop/sygnały/wykres122.png}
+  \centering
+    \caption{Funkcja 2 dla $N=2$}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{/Users/wojtek/Desktop/sygnały/wykres124.png}
+  \centering
+   \caption{Funkcja 2 dla $N=4$}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{/Users/wojtek/Desktop/sygnały/wykres128.png}
+  \centering
+  \caption{Funkcja 2 dla $N=8$}
+\end{figure}
+
+
+\begin{table}
+\centering
+\begin{tabular}{||c c c||} 
+ \hline
+ N & MAE & RMSE \\ 
+ \hline\hline
+ 1 & 0.1376407 & 0.1577294 \\ 
+ 2 & 0.028714 & 0.0350585 \\
+ 4 & 0.0132317 & 0.0170206 \\
+ 8 & 0.0050885 & 0.0073135 \\
+ \hline\hline
+\end{tabular}
+\caption{Analityczne wyliczenie szeregu Fouriera dla Funkcji 3}
+\end{table} 
+
+\begin{table}
+\centering
+\begin{tabular}{||c c c||} 
+ \hline
+ N & MAE & RMSE \\ 
+ \hline\hline
+ 1 & 0.3847694 & 0.4256902 \\ 
+ 2 & 0.3262476 & 0.3637937 \\
+ 4 & 0.148971 & 0.1699977 \\
+ 8 & 0.0294167 & 0.0360603 \\
+ \hline\hline
+\end{tabular}
+\caption{Numeryczne wyliczenie szeregu Fouriera dla Funkcji 3}
+\end{table}
+\textbf{Jak widać szereg Fouriera wyznaczony analitycznie cechuje się znacznie mniejszymi wartościami MAE i RMSE, co oznacza, że potrafi przybliżać funkcję o wiele dokładniej niż metoda numeryczna.}
+
+\phantomsection
+\addcontentsline{toc}{section}{Transformata Fouriera}
+\section*{Transformata Fouriera}
+
+Transformatą Fouriera nazywamy operator funkcji $f(t)$ zdefiniowany jako
+\begin{equation*}
+\hat f(\omega) = \mathfrak{F}\bigl\{f(t)\bigr\} = \int_{-\infty}^{\infty}f(t)e^{-\i \omega t}\,dt\
+\end{equation*}
+
+\phantomsection
+\addcontentsline{toc}{subsection}{Impuls 1}
+\subsection*{Impuls 1 - trójkątny}
+
+Dla impulsu trójkątnego danego wzorem
+\[  f(t)= \left\{
+\begin{array}{ll}
+      1- \left | t \right | &dla\hspace{0.2cm}-1 \leq t\leq 1 \\[1.5ex]
+      0 &\hspace{0.3cm}poza\hspace{0.2cm}tym
+\end{array}  
+\right. \]
+mamy
+\begin{align*}
+\int_{-1}^{1}(1-\left | t \right |)e^{-\i \omega t}\ dt\ &=
+\int_{-1}^{0}(1+t)e^{-\i \omega t}\ dt\ + \int_{0}^{1}(1-t)e^{-\i \omega t}\ dt &= 
+\frac{\sin ^2{(\frac{t}{2})}}{(\frac{t}{2})^2}
+\end{align*}
+\newpage
+\begin{figure}
+  \includegraphics[width=\linewidth]{/Users/wojtek/Desktop/sygnały/wykres211.png}
+  \centering
+  \caption{Impuls trójkątny}
+\end{figure}
+
+\phantomsection
+\addcontentsline{toc}{subsection}{Impuls 2}
+\subsection*{Impuls 2 - funkcja gaussa}
+
+Dla impulsu gaussowskiego danego wzorem
+\begin{equation*}
+f(t) = e^{-\pi t^2}
+\end{equation*}
+mamy
+\begin{align*}
+\int_{-\infty}^{\infty}e^{-\pi t^2}e^{-\i \omega t}\ dt\ &=
+(e^{-\frac{\omega ^2}{4\pi}})\int_{\infty}^{\infty}e^{-\pi (t +\frac{\i \omega}{2\pi})^2}\ dt = e^{-\frac{\omega ^2}{4\pi}}
+\end{align*}
+\newpage
+\begin{figure}
+  \includegraphics[width=\linewidth]{/Users/wojtek/Desktop/sygnały/wykres221.png}
+  \centering
+  \caption{Impuls gaussowski}
+\end{figure}
+\phantomsection
+\addcontentsline{toc}{subsection}{Impuls 3}
+\subsection*{Impuls 3 - podwójnie wykładnicza}
+
+Dla impulsu podwójnego wykładniczego danego wzorem
+\begin{equation*}
+f(t) = e^{-2 \left | t \right |}
+\end{equation*}
+mamy
+\begin{align*}
+\int_{-\infty}^{\infty}e^{-2 \left | t \right |}e^{-\i \omega t}\ dt\ &=
+\int_{-\infty}^{0}(e^{2t-\i \omega t)}\ dt\ + \int_{0}^{\infty}(e^{-2t-\i \omega t)}\ dt\ &= \frac{4}{4+t^2}
+\end{align*}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{/Users/wojtek/Desktop/sygnały/wykres231.png}
+  \centering
+  \caption{Impuls podwójnie wykładniczy}
+\end{figure}
+
+\end{document}
